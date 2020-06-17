@@ -15,7 +15,24 @@ public class AddressBookMain {
         final IAddressBookService iAddressBookService = new AddressBookServiceImpl(new AddressBookRepo());
         System.out.println("Welcome to addressbook problem");
 
-        iAddressBookService.addPerson();
-        System.out.println("Contact Added::");
+        System.out.println("View options and choose\n1.Add contact \n2.View contact \n3.Edit contact");
+
+        final int choice = AddressBookUtil.getUserNumber();
+        switch (choice) {
+            case 1:
+                iAddressBookService.addPerson();
+                System.out.println("Contact Added::");
+                break;
+            case 2:
+                System.out.println("Displaying Contact::");
+                iAddressBookService.display();
+                break;
+            case 3:
+                iAddressBookService.editPerson();
+                System.out.println("Contact Edited::");
+                break;
+            default:
+                System.out.println("Invalid Entry");
+        }
     }
 }
