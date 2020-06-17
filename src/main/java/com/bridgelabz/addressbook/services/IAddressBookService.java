@@ -16,4 +16,5 @@ public interface IAddressBookService {
     void viewByCityAndState();
     Person findPerson(String firstName);
     void sort();
+    void findByCityOrState();
 }
