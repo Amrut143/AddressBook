@@ -9,6 +9,7 @@ import com.bridgelabz.addressbook.models.Person;
 public interface IAddressBookService {
     void addPerson();
     void editPerson();
+    void deletePerson();
     void display();
     void saveChange();
     Person findPerson(String firstName);
