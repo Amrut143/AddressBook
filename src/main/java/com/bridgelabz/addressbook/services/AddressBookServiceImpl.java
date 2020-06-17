@@ -75,6 +75,19 @@ public class AddressBookServiceImpl implements IAddressBookService {
             System.out.println("data not found.");
         }
     }
+    /*override delete method to delete the person details*/
+    @Override
+    public void deletePerson() {
+        Person p = getPersonName();
+        if(p != null ){
+            repo.addressBook.remove(p);
+            System.out.println("contact deleted");
+            saveChange();
+        }else{
+            System.out.println("contact not found.");
+        }
+
+    }
     @Override
     public void display(){
         repo.displayContact();
@@ -87,7 +100,7 @@ public class AddressBookServiceImpl implements IAddressBookService {
     private Person getPersonName(){
         AddressBookUtil.getUserString();
         display();
-        System.out.print("Enter first name of person you want to edit: ");
+        System.out.print("Enter first name of person you want to edit or delete:: ");
         String firstName = AddressBookUtil.getUserString();
         Person p = findPerson(firstName);
         return p;
