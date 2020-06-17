@@ -120,7 +120,6 @@ public class AddressBookServiceImpl implements IAddressBookService {
                 System.out.println("Invalid input.");
         }
     }
-
     @Override
     public void display(){
         repo.displayContact();
@@ -134,6 +133,22 @@ public class AddressBookServiceImpl implements IAddressBookService {
         for(Person p : repo.addressBook) {
                 /*using stream api*/
                 List<Person> addressBook = repo.addressBook.stream().distinct().collect(Collectors.toList());
+        }
+    }
+    /*override method viewByCityAndState*/
+    @Override
+    public void viewByCityAndState() {
+        /*local variable to asking user for city and state*/
+        System.out.println("Enter the city you want::");
+        String city = AddressBookUtil.getUserString();
+        System.out.println("Enter the state you want::");
+        String state = AddressBookUtil.getUserString();
+        Map<String ,String > person = new Hashtable<>();
+        for(Person p : repo.addressBook){
+            if(city.equalsIgnoreCase(p.getCity()) && state.equalsIgnoreCase(p.getState())){
+                person=p;
+                break;
+            }
         }
     }
 
