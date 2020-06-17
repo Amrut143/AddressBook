@@ -147,11 +147,33 @@ public class AddressBookServiceImpl implements IAddressBookService {
         for(Person p : repo.addressBook){
             if(city.equalsIgnoreCase(p.getCity()) && state.equalsIgnoreCase(p.getState())){
                 person=p;
+                System.out.println(person);
                 break;
             }
         }
     }
 
+    @Override
+    public void findByCityOrState() {
+        System.out.println("1. Search by city");
+        System.out.println("2. Search by state");
+        System.out.println("Enter your choice::");
+        int choice = AddressBookUtil.getUserNumber();
+        switch (choice){
+            case 1:
+                System.out.println("Enter the city you want to search::");
+                String city = AddressBookUtil.getUserString();
+                repo.addressBook.stream().filter(person -> city.equalsIgnoreCase(person.getCity())).findAny().orElse(null);
+                break;
+            case 2:
+                System.out.println("Enter the state you want to search::");
+                String state = AddressBookUtil.getUserString();
+                repo.addressBook.stream().filter(person -> state.equalsIgnoreCase(person.getState())).findAny().orElse(null);
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
+    }
     private Person getPersonName(){
         AddressBookUtil.getUserString();
         display();
