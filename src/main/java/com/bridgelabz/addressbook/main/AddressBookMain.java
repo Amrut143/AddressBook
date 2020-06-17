@@ -15,7 +15,7 @@ public class AddressBookMain {
         final IAddressBookService iAddressBookService = new AddressBookServiceImpl(new AddressBookRepo());
         System.out.println("Welcome to addressbook problem");
 
-        System.out.println("View options and choose\n1.Add contact \n2.View contact \n3.Edit contact");
+        System.out.println("View options and choose\n1.Add contact \n2.View contact \n3.Edit contact \n4.Delete contact");
 
         final int choice = AddressBookUtil.getUserNumber();
         switch (choice) {
@@ -30,6 +30,10 @@ public class AddressBookMain {
             case 3:
                 iAddressBookService.editPerson();
                 System.out.println("Contact Edited::");
+                break;
+            case 4:
+                System.out.println("Delete Contact::");
+                iAddressBookService.deletePerson();
                 break;
             default:
                 System.out.println("Invalid Entry");
