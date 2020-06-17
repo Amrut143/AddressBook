@@ -4,6 +4,7 @@ import com.bridgelabz.addressbook.utils.AddressBookRepo;
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *Creating implementation class for AddressBookService interface for method implementation
@@ -23,6 +24,7 @@ public class AddressBookServiceImpl implements IAddressBookService {
         AddressBookUtil.getUserString();
         System.out.println("Enter First name: ");
         final String firstName = AddressBookUtil.getUserString();
+        removeDuplicate();
 
         System.out.println("Enter Last name: ");
         final String lastName = AddressBookUtil.getUserString();
@@ -97,6 +99,13 @@ public class AddressBookServiceImpl implements IAddressBookService {
     public void saveChange() {
         List<Person> addressBook = repo.addressBook;
     }
+    public void removeDuplicate() {
+        for(Person p : repo.addressBook) {
+                /*using stream api*/
+                List<Person> addressBook = repo.addressBook.stream().distinct().collect(Collectors.toList());
+        }
+    }
+
     private Person getPersonName(){
         AddressBookUtil.getUserString();
         display();
