@@ -38,7 +38,7 @@ public class AddressBookMain {
                     break;
                 case 5:
                     System.out.println("Sort Contact::");
-                    iAddressBookService.sortByName();
+                    iAddressBookService.sort();
                     break;
                 default:
                     System.out.println("Invalid Entry");

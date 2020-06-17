@@ -92,10 +92,33 @@ public class AddressBookServiceImpl implements IAddressBookService {
     }
 
     @Override
-    public void sortByName() {
-        /*store the sorted element*/
-        Collections.sort(repo.addressBook, Person.sortByName);
-        display();
+    public void sort() {
+        System.out.println("1. Sort by name");
+        System.out.println("2. Sort by city");
+        System.out.println("3. Sort by state");
+        System.out.println("4. Sort by zip");
+        System.out.print("Enter your choice: ");
+        int choice = AddressBookUtil.getUserNumber();
+        switch(choice) {
+            case 1:
+                Collections.sort(repo.addressBook, Person.sortByName);
+                display();
+                break;
+            case 2:
+                Collections.sort(repo.addressBook, Person.sortByCity);
+                display();
+                break;
+            case 3:
+                Collections.sort(repo.addressBook, Person.sortByState);
+                display();
+                break;
+            case 4:
+                Collections.sort(repo.addressBook, Person.sortByZip);
+                display();
+                break;
+            default:
+                System.out.println("Invalid input.");
+        }
     }
 
     @Override

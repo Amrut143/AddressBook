@@ -75,12 +75,40 @@ public class Person {
         this.phone = phone;
     }
 
+    /*Sort element by name using comparator*/
     public static Comparator<Person> sortByName = new Comparator<Person>() {
         public int compare(Person obj1, Person obj2) {
             String name1 = obj1.getFirstName();
             String name2 = obj2.getFirstName();
 
             return name1.compareTo(name2);
+        }
+    };
+    /*Sort element by city*/
+    public static Comparator<Person> sortByCity = new Comparator<Person>(){
+        public int compare(Person obj1, Person obj2){
+            String city1 = obj1.getCity();
+            String city2 = obj2.getCity();
+
+            return city1.compareTo(city2);
+        }
+    };
+    /*Sort element by State*/
+    public static Comparator<Person> sortByState = new Comparator<Person>(){
+        public int compare(Person obj1, Person obj2){
+            String state1 = obj1.getState();
+            String state2 = obj2.getState();
+
+            return state1.compareTo(state2);
+        }
+    };
+    /*Sort element by zipcode*/
+    public static Comparator<Person> sortByZip = new Comparator<Person>(){
+        public int compare(Person obj1, Person obj2){
+            String zip1 = obj1.getZipCode();
+            String zip2 = obj2.getZipCode();
+
+            return zip1.compareTo(zip2);
         }
     };
 }
