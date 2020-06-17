@@ -1,5 +1,7 @@
 package com.bridgelabz.addressbook.models;
 
+import java.util.Comparator;
+
 /**
  *this is the person pojo class to define the required fields and setter getter methods
  *@author:Amrut
@@ -15,7 +17,7 @@ public class Person {
     private String phone;
 
     /*constructor to initialize the data of persons*/
-    public Person(final String firstName, final String lastName, final String address, final String city, final String state, final String zipCode, final String phone){
+    public Person(final String firstName, final String lastName, final String address, final String city, final String state, final String zipCode, final String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -72,4 +74,13 @@ public class Person {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public static Comparator<Person> sortByName = new Comparator<Person>() {
+        public int compare(Person obj1, Person obj2) {
+            String name1 = obj1.getFirstName();
+            String name2 = obj2.getFirstName();
+
+            return name1.compareTo(name2);
+        }
+    };
 }
