@@ -2,7 +2,7 @@ package com.bridgelabz.addressbook.services;
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.utils.AddressBookRepo;
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
-
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,6 +90,14 @@ public class AddressBookServiceImpl implements IAddressBookService {
         }
 
     }
+
+    @Override
+    public void sortByName() {
+        /*store the sorted element*/
+        Collections.sort(repo.addressBook, Person.sortByName);
+        display();
+    }
+
     @Override
     public void display(){
         repo.displayContact();

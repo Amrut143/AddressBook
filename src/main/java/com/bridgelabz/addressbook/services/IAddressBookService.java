@@ -13,4 +13,5 @@ public interface IAddressBookService {
     void display();
     void saveChange();
     Person findPerson(String firstName);
+    void sortByName();
 }
