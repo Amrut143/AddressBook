@@ -2,7 +2,15 @@ package com.bridgelabz.addressbook.services;
 
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,39 +22,45 @@ import java.util.stream.Collectors;
  */
 public class AddressBookServiceImpl implements IAddressBookService {
 
-    /*creating arraylist object to store the data*/
     public List<Person> addressBook = new ArrayList<>();
+    JSONObject personDetails = new JSONObject();
 
     @Override
     public void addPerson() {
         AddressBookUtil.getUserString();
         System.out.println("Enter First name: ");
         final String firstName = AddressBookUtil.getUserString();
+        personDetails.put("FirstName: ", firstName);
 
         System.out.println("Enter Last name: ");
         final String lastName = AddressBookUtil.getUserString();
+        personDetails.put("LastName: ", lastName);
 
         System.out.println("Enter Address: ");
         final String address = AddressBookUtil.getUserString();
+        personDetails.put("Address: ", address);
 
         System.out.println("Enter City: ");
         final String city = AddressBookUtil.getUserString();
+        personDetails.put("City: ", city);
 
         System.out.println("Enter State: ");
         final String state = AddressBookUtil.getUserString();
+        personDetails.put("State: ", state);
 
         System.out.println("Enter Phone number: ");
         final String phone = AddressBookUtil.getUserString();
+        personDetails.put("PhoneNumber: ", phone);
 
         System.out.println("Enter Zip code: ");
         final String zipCode = AddressBookUtil.getUserString();
+        personDetails.put("ZipCode: ", zipCode);
 
-        final Person personDetails = new Person(firstName, lastName, address, city, state, phone, zipCode);
-        addressBook.add(personDetails);
+        final Person person = new Person(firstName, lastName, address, city, state, phone, zipCode);
+        addressBook.add(person);
         addressBook = addressBook.stream()
-                                 .distinct()
-                                 .collect(Collectors.toList());
-
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -72,20 +86,19 @@ public class AddressBookServiceImpl implements IAddressBookService {
             System.out.print("Enter Phone number: ");
             final String phone = AddressBookUtil.getUserString();
             person.setPhone(phone);
-            saveChange();
+            saveDetails();
         } else {
             System.out.println("data not found.");
         }
     }
 
-    /*override delete method to delete the person details*/
     @Override
     public void deletePerson() {
         Person person = getPersonName();
         if (person != null) {
             addressBook.remove(person);
             System.out.println("contact deleted");
-            saveChange();
+            saveDetails();
         } else {
             System.out.println("contact not found.");
         }
@@ -132,20 +145,18 @@ public class AddressBookServiceImpl implements IAddressBookService {
             System.out.println("State: " + person.getState());
             System.out.println("ZipCode: " + person.getZipCode());
             System.out.println("Phone: " + person.getPhone());
+
+            this.readPersonDetailsFromJson();
         }
     }
 
-    /*override method to save the changes made*/
     @Override
-    public void saveChange() {
-
-        List<Person> personList = addressBook;
+    public void saveDetails() {
+        this.writeIntoJson();
     }
 
-    /*override method viewByCityAndState*/
     @Override
     public void viewByCityAndState() {
-        /*local variable to asking user for city and state*/
         AddressBookUtil.getUserString();
         System.out.println("Enter the city you want::");
         String city = AddressBookUtil.getUserString();
@@ -154,11 +165,11 @@ public class AddressBookServiceImpl implements IAddressBookService {
         List<Person> personList = new ArrayList<>();
         for (Person person : addressBook) {
             addressBook.stream()
-                       .filter(persons ->
-                               city.equalsIgnoreCase(person.getCity()) &&
-                                       state.equalsIgnoreCase(person.getState()))
-                       .forEach(personList::add);
-                System.out.println(personList);
+                    .filter(persons ->
+                            city.equalsIgnoreCase(person.getCity()) &&
+                                    state.equalsIgnoreCase(person.getState()))
+                    .forEach(personList::add);
+            System.out.println(personList);
         }
     }
 
@@ -176,8 +187,8 @@ public class AddressBookServiceImpl implements IAddressBookService {
                 String city = AddressBookUtil.getUserString();
                 for (Person person : addressBook) {
                     addressBook.stream()
-                               .filter(persons -> person.getCity().equalsIgnoreCase(city))
-                               .forEach(personList::add);
+                            .filter(persons -> person.getCity().equalsIgnoreCase(city))
+                            .forEach(personList::add);
                     System.out.println(personList);
                 }
                 break;
@@ -187,8 +198,8 @@ public class AddressBookServiceImpl implements IAddressBookService {
                 String state = AddressBookUtil.getUserString();
                 for (Person person : addressBook) {
                     addressBook.stream()
-                               .filter(persons -> person.getState().equalsIgnoreCase(state))
-                               .forEach(personList::add);
+                            .filter(persons -> person.getState().equalsIgnoreCase(state))
+                            .forEach(personList::add);
                     System.out.println(personList);
                 }
                 break;
@@ -209,9 +220,54 @@ public class AddressBookServiceImpl implements IAddressBookService {
     @Override
     public Person findPerson(String firstName) {
         Person returnPerson = addressBook.stream()
-                                         .filter(person -> firstName.equals(person.getFirstName()))
-                                         .findFirst()
-                                         .orElse(null);
+                .filter(person -> firstName.equals(person.getFirstName()))
+                .findFirst()
+                .orElse(null);
         return returnPerson;
+    }
+
+    private void writeIntoJson() {
+        JSONObject personObject = new JSONObject();
+        personObject.put("personDetails", personDetails);
+        JSONArray personList = new JSONArray();
+        personList.put(personObject);
+        try (FileWriter file = new FileWriter("D:/FellowshipProgram/AddressBook/src/test/resources" +
+                "/PersonAddressBook.json")) {
+            file.write(personList.toString());
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void parsePersonObject(JSONObject person) {
+        JSONObject personObject = (JSONObject) person.get("personDetail");
+        String firstName = (String) personObject.get("firstName");
+        System.out.println(firstName);
+        String lastName = (String) personObject.get("lastName");
+        System.out.println(lastName);
+        String address = (String) personObject.get("address");
+        System.out.println(address);
+        String city = (String) personObject.get("city");
+        System.out.println(city);
+        String phone = (String) personObject.get("phone");
+        System.out.println(phone);
+        String state = (String) personObject.get("state");
+        System.out.println(state);
+        String zip = (String) personObject.get("zip");
+        System.out.println(zip);
+    }
+
+    private void readPersonDetailsFromJson() {
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader("D:/FellowshipProgram/AddressBook/src/test/resources" +
+                "/PersonAddressBook.json")) {
+            Object object = jsonParser.parse(reader);
+            JSONArray personList = (JSONArray) object;
+            System.out.println(personList);
+            personList.forEach(person -> this.parsePersonObject((JSONObject) person));
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

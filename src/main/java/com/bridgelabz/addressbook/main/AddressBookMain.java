@@ -17,7 +17,8 @@ public class AddressBookMain {
         while(true) {
             System.out.println("View options and choose\n1.Add contact \n2.View contact \n3.Edit contact " +
                     "\n4.Delete contact \n5.Sort contact \n6.View by city and state " +
-                    "\n7.Search by city or state");
+                    "\n7.Search by city or state \n8. Save Details & Quit " +
+                    "\n9. Quit without saving \n Enter your option:: ");
 
             final int choice = AddressBookUtil.getUserNumber();
             switch (choice) {
@@ -50,8 +51,11 @@ public class AddressBookMain {
                     iAddressBookService.findByCityOrState();
                     break;
                 case 8:
-                    iAddressBookService.saveChange();
+                    iAddressBookService.saveDetails();
                     System.out.println("Quit.........");
+                    System.exit(0);
+                case 9:
+                    System.out.println("Quiting......");
                     System.exit(0);
                 default:
                     System.out.println("Invalid Entry");

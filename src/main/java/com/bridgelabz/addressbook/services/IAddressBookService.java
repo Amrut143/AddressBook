@@ -11,7 +11,7 @@ public interface IAddressBookService {
     void editPerson();
     void deletePerson();
     void display();
-    void saveChange();
+    void saveDetails();
     /*override method viewByCityAndState*/
     void viewByCityAndState();
     Person findPerson(String firstName);
