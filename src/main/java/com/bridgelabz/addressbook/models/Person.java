@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbook.models;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  *this is the person pojo class to define the required fields and setter getter methods
@@ -75,38 +76,55 @@ public class Person {
         this.phone = phone;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return firstName.equals(person.firstName) &&
+                lastName.equals(person.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
+
     /*Sort element by name using comparator*/
     public static Comparator<Person> sortByName = new Comparator<Person>() {
-        public int compare(Person obj1, Person obj2) {
-            String name1 = obj1.getFirstName();
-            String name2 = obj2.getFirstName();
+        public int compare(Person firstPerson, Person secondPerson) {
+            String name1 = firstPerson.getFirstName();
+            String name2 = secondPerson.getFirstName();
 
             return name1.compareTo(name2);
         }
     };
+
     /*Sort element by city*/
     public static Comparator<Person> sortByCity = new Comparator<Person>(){
-        public int compare(Person obj1, Person obj2){
-            String city1 = obj1.getCity();
-            String city2 = obj2.getCity();
+        public int compare(Person firstPerson, Person secondPerson){
+            String city1 = firstPerson.getCity();
+            String city2 = secondPerson.getCity();
 
             return city1.compareTo(city2);
         }
     };
+
     /*Sort element by State*/
     public static Comparator<Person> sortByState = new Comparator<Person>(){
-        public int compare(Person obj1, Person obj2){
-            String state1 = obj1.getState();
-            String state2 = obj2.getState();
+        public int compare(Person firstPerson, Person secondPerson){
+            String state1 = firstPerson.getState();
+            String state2 = secondPerson.getState();
 
             return state1.compareTo(state2);
         }
     };
+
     /*Sort element by zipcode*/
     public static Comparator<Person> sortByZip = new Comparator<Person>(){
-        public int compare(Person obj1, Person obj2){
-            String zip1 = obj1.getZipCode();
-            String zip2 = obj2.getZipCode();
+        public int compare(Person firstPerson, Person secondPerson){
+            String zip1 = firstPerson.getZipCode();
+            String zip2 = secondPerson.getZipCode();
 
             return zip1.compareTo(zip2);
         }

@@ -1,5 +1,4 @@
 package com.bridgelabz.addressbook.main;
-import com.bridgelabz.addressbook.utils.AddressBookRepo;
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
 import com.bridgelabz.addressbook.services.IAddressBookService;
 import com.bridgelabz.addressbook.services.AddressBookServiceImpl;
@@ -12,11 +11,13 @@ public class AddressBookMain {
     public static void main(String[] args) {
 
         /*creating the implementation class object*/
-        final IAddressBookService iAddressBookService = new AddressBookServiceImpl(new AddressBookRepo());
+        final IAddressBookService iAddressBookService = new AddressBookServiceImpl();
         System.out.println("Welcome to addressbook problem");
 
         while(true) {
-            System.out.println("View options and choose\n1.Add contact \n2.View contact \n3.Edit contact \n4.Delete contact \5.Sort contact \n6.View by city and state \n7.Search by city or state");
+            System.out.println("View options and choose\n1.Add contact \n2.View contact \n3.Edit contact " +
+                    "\n4.Delete contact \n5.Sort contact \n6.View by city and state " +
+                    "\n7.Search by city or state");
 
             final int choice = AddressBookUtil.getUserNumber();
             switch (choice) {
