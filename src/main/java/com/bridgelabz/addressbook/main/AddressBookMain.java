@@ -4,17 +4,30 @@ import com.bridgelabz.addressbook.utils.AddressBookUtil;
 import com.bridgelabz.addressbook.services.IAddressBookService;
 import com.bridgelabz.addressbook.services.AddressBookServiceImpl;
 
+import java.io.IOException;
+
 /**
  * This is the main class contains main method and handles everyother packages and classes.
  *
  * @author:Amrut
  */
 public class AddressBookMain {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         final IAddressBookService iAddressBookService = new AddressBookServiceImpl();
         System.out.println("Welcome to addressbook problem");
-        iAddressBookService.loadDataFromFile();
+
+        System.out.println("\nEnter the file operation you want to perform: " +
+                "\n1.SimpleJSONFile \n2.CSVFile \nEnter your option:: ");
+        int choice = AddressBookUtil.getUserNumber();
+        switch (choice) {
+            case 1:
+                iAddressBookService.loadDataFromSimpleJSON();
+                break;
+            case 2:
+                iAddressBookService.loadDataFromCSVFile();
+                break;
+        }
 
         while (true) {
             System.out.println("View options and choose\n1.Add contact \n2.View contact \n3.Edit contact " +
@@ -22,8 +35,8 @@ public class AddressBookMain {
                     "\n7.Search by city or state \n8. Save Details & Quit " +
                     "\n9. Quit without saving \n Enter your option:: ");
 
-            final int choice = AddressBookUtil.getUserNumber();
-            switch (choice) {
+            final int option = AddressBookUtil.getUserNumber();
+            switch (option) {
                 case 1:
                     iAddressBookService.addPerson();
                     System.out.println("Contact Added::");

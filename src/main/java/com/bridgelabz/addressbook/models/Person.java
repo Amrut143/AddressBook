@@ -1,5 +1,7 @@
 package com.bridgelabz.addressbook.models;
 
+import com.opencsv.bean.CsvBindByName;
+
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -9,12 +11,25 @@ import java.util.Objects;
  */
 public class Person {
 
-    public String firstName;
-    public String lastName;
+    @CsvBindByName(required = true, column = "FIRST NAME")
+    private final String firstName;
+
+    @CsvBindByName(required = true, column = "LAST NAME")
+    private final String lastName;
+
+    @CsvBindByName(required = true, column = "ADDRESS")
     private String address;
+
+    @CsvBindByName(required = true, column = "CITY")
     private String city;
+
+    @CsvBindByName(required = true, column = "STATE")
     private String state;
+
+    @CsvBindByName(required = true, column = "ZIP")
     private String zipCode;
+
+    @CsvBindByName(required = true, column = "MOBILE NO.")
     private String phone;
 
     public Person(final String firstName, final String lastName, final String address, final String city, final String state, final String zipCode, final String phone) {
@@ -26,8 +41,6 @@ public class Person {
         this.zipCode = zipCode;
         this.phone = phone;
     }
-
-    public Person() {}
 
     public String getFirstName() {
         return firstName;

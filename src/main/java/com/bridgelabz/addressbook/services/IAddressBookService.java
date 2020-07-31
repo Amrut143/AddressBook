@@ -2,6 +2,8 @@ package com.bridgelabz.addressbook.services;
 
 import com.bridgelabz.addressbook.models.Person;
 
+import java.io.IOException;
+
 /**
  *@author Amrut
  *creating an interface to define methods which are going to implement in the corresponding implementation class.
@@ -16,5 +18,6 @@ public interface IAddressBookService {
     Person findPerson(String firstName);
     void sort();
     void findByCityOrState();
-    void loadDataFromFile();
+    void loadDataFromSimpleJSON() throws IOException;
+    void loadDataFromCSVFile() throws IOException;
 }

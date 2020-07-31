@@ -13,4 +13,5 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
     compile 'org.json:json:20171018'
+    compile "com.opencsv:opencsv:4.0"
 }
