@@ -20,4 +20,5 @@ public interface IAddressBookService {
     void findByCityOrState();
     void loadDataFromSimpleJSON() throws IOException;
     void loadDataFromCSVFile() throws IOException;
+    void loadDataFromGsonJSON() throws IOException;
 }

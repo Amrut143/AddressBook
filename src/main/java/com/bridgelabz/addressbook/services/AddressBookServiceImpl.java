@@ -2,6 +2,7 @@ package com.bridgelabz.addressbook.services;
 
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.strategy.CSVReadWriteStrategy;
+import com.bridgelabz.addressbook.strategy.GsonToJSONReadWriteStrategy;
 import com.bridgelabz.addressbook.strategy.IFileReadWriteStrategy;
 import com.bridgelabz.addressbook.strategy.SimpleJSONReadWriteStrategy;
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
@@ -18,11 +19,13 @@ import java.util.stream.Collectors;
  */
 public class AddressBookServiceImpl implements IAddressBookService {
 
-    private String jsonFilePath = "D:/FellowshipProgram/AddressBook/src/test/resources/PersonAddressBook.json";
+    private final String jsonFilePath = "D:/FellowshipProgram/AddressBook/src/test/resources/PersonAddressBook.json";
     IFileReadWriteStrategy jsonReadWriteStrategy = new SimpleJSONReadWriteStrategy();
     public List<Person> addressBook = new ArrayList<>();
-    private String csvFilePath = "D:/FellowshipProgram/AddressBook/src/test/resources/AddressBook.csv";
+    private final String csvFilePath = "D:/FellowshipProgram/AddressBook/src/test/resources/AddressBook.csv";
     IFileReadWriteStrategy csvReadWriteStrategy = new CSVReadWriteStrategy();
+    private final String gsonJSONFilePath = "D:/FellowshipProgram/AddressBook/src/test/resources/GsonAddressBook.json";
+    IFileReadWriteStrategy gsonReadWriteStrategy = new GsonToJSONReadWriteStrategy();
 
     @Override
     public void addPerson() {
@@ -145,6 +148,7 @@ public class AddressBookServiceImpl implements IAddressBookService {
         System.out.println("Enter you choice where you want to save the data::");
         System.out.println("1.SimpleJSONFile");
         System.out.println("2.CSVFile");
+        System.out.println("3.JSONFileUsingGson");
         int choice = AddressBookUtil.getUserNumber();
         switch (choice) {
             case 1:
@@ -152,6 +156,9 @@ public class AddressBookServiceImpl implements IAddressBookService {
                 break;
             case 2:
                 csvReadWriteStrategy.writeDataToFile(addressBook, csvFilePath);
+                break;
+            case 3:
+                gsonReadWriteStrategy.writeDataToFile(addressBook, gsonJSONFilePath);
                 break;
         }
     }
@@ -237,6 +244,20 @@ public class AddressBookServiceImpl implements IAddressBookService {
     @Override
     public void loadDataFromCSVFile() throws IOException {
         List<Person> personList = csvReadWriteStrategy.readDataToList(csvFilePath);
+        if (personList.isEmpty()) {
+            System.out.println("Nothing to load from file.");
+        } else {
+            if (!addressBook.isEmpty()) {
+                addressBook.clear();
+            }
+            addressBook.addAll(personList);
+            System.out.println("Data loaded from file");
+        }
+    }
+
+    @Override
+    public void loadDataFromGsonJSON() throws IOException {
+        List<Person> personList = gsonReadWriteStrategy.readDataToList(gsonJSONFilePath);
         if (personList.isEmpty()) {
             System.out.println("Nothing to load from file.");
         } else {

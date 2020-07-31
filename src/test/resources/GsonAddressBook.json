@@ -1,0 +1,20 @@
+[
+  {
+    "firstName": "Amrut",
+    "lastName": "Panda",
+    "address": "silkboard",
+    "city": "blr",
+    "state": "ka",
+    "zipCode": "9876057689",
+    "phone": "765744"
+  },
+  {
+    "firstName": "Dilip",
+    "lastName": "Sahu",
+    "address": "hitec city",
+    "city": "hyd",
+    "state": "tl",
+    "zipCode": "8795657849",
+    "phone": "375637"
+  }
+]

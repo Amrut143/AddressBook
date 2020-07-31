@@ -18,7 +18,7 @@ public class AddressBookMain {
         System.out.println("Welcome to addressbook problem");
 
         System.out.println("\nEnter the file operation you want to perform: " +
-                "\n1.SimpleJSONFile \n2.CSVFile \nEnter your option:: ");
+                "\n1.SimpleJSONFile \n2.CSVFile \n3.JSONFileUsingGson \nEnter your option:: ");
         int choice = AddressBookUtil.getUserNumber();
         switch (choice) {
             case 1:
@@ -26,6 +26,9 @@ public class AddressBookMain {
                 break;
             case 2:
                 iAddressBookService.loadDataFromCSVFile();
+                break;
+            case 3:
+                iAddressBookService.loadDataFromGsonJSON();
                 break;
         }
 

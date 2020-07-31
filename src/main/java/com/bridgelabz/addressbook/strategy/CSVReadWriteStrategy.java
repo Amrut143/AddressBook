@@ -8,6 +8,7 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -20,21 +21,18 @@ public class CSVReadWriteStrategy implements IFileReadWriteStrategy {
 
     @Override
     public List<Person> readDataToList(String filePath) throws IOException {
-        try (
-                Reader reader = Files.newBufferedReader(Paths.get(filePath));
-                CSVReader csvReader = new CSVReader(reader)
-        ) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(filePath))) {
             List<Person> addressBook = new ArrayList<>();
             csvReader.readNext();
-            String[] nextPerson;
-            while ((nextPerson = csvReader.readNext()) != null) {
-                addressBook.add(new Person(nextPerson[2],
-                        nextPerson[3],
-                        nextPerson[0],
-                        nextPerson[1],
-                        nextPerson[5],
-                        nextPerson[6],
-                        nextPerson[4]));
+            String[] personData;
+            while ((personData = csvReader.readNext()) != null) {
+                addressBook.add(new Person(personData[2],
+                        personData[3],
+                        personData[0],
+                        personData[1],
+                        personData[5],
+                        personData[6],
+                        personData[4]));
             }
             return addressBook;
         }
