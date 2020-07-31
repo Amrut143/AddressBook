@@ -1,20 +1,22 @@
 package com.bridgelabz.addressbook.main;
+
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
 import com.bridgelabz.addressbook.services.IAddressBookService;
 import com.bridgelabz.addressbook.services.AddressBookServiceImpl;
 
 /**
- *This is the main class contains main method and handles everyother packages and classes.
- *@author:Amrut
+ * This is the main class contains main method and handles everyother packages and classes.
+ *
+ * @author:Amrut
  */
 public class AddressBookMain {
     public static void main(String[] args) {
 
-        /*creating the implementation class object*/
         final IAddressBookService iAddressBookService = new AddressBookServiceImpl();
         System.out.println("Welcome to addressbook problem");
+        iAddressBookService.loadDataFromFile();
 
-        while(true) {
+        while (true) {
             System.out.println("View options and choose\n1.Add contact \n2.View contact \n3.Edit contact " +
                     "\n4.Delete contact \n5.Sort contact \n6.View by city and state " +
                     "\n7.Search by city or state \n8. Save Details & Quit " +

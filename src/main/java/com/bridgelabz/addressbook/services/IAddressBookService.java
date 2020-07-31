@@ -12,9 +12,9 @@ public interface IAddressBookService {
     void deletePerson();
     void display();
     void saveDetails();
-    /*override method viewByCityAndState*/
     void viewByCityAndState();
     Person findPerson(String firstName);
     void sort();
     void findByCityOrState();
+    void loadDataFromFile();
 }

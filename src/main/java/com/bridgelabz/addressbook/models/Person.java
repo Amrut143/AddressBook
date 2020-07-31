@@ -8,16 +8,15 @@ import java.util.Objects;
  *@author:Amrut
  */
 public class Person {
-    /*data of a person*/
-    private final String firstName;
-    private final String lastName;
+
+    public String firstName;
+    public String lastName;
     private String address;
     private String city;
     private String state;
     private String zipCode;
     private String phone;
 
-    /*constructor to initialize the data of persons*/
     public Person(final String firstName, final String lastName, final String address, final String city, final String state, final String zipCode, final String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,6 +26,8 @@ public class Person {
         this.zipCode = zipCode;
         this.phone = phone;
     }
+
+    public Person() {}
 
     public String getFirstName() {
         return firstName;
@@ -74,6 +75,19 @@ public class Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 
     @Override
