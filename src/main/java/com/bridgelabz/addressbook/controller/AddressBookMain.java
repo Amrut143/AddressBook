@@ -1,4 +1,4 @@
-package com.bridgelabz.addressbook.main;
+package com.bridgelabz.addressbook.controller;
 
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
 import com.bridgelabz.addressbook.services.IAddressBookService;
@@ -29,6 +29,9 @@ public class AddressBookMain {
                 break;
             case 3:
                 iAddressBookService.loadDataFromGsonJSON();
+                break;
+            default:
+                System.out.println("Invalid input, please enter valid input");
                 break;
         }
 

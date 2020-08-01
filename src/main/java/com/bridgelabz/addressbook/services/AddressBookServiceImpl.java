@@ -2,14 +2,13 @@ package com.bridgelabz.addressbook.services;
 
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.strategy.CSVReadWriteStrategy;
-import com.bridgelabz.addressbook.strategy.GsonToJSONReadWriteStrategy;
+import com.bridgelabz.addressbook.strategy.JSONReadWriteUsingGsonStrategy;
 import com.bridgelabz.addressbook.strategy.IFileReadWriteStrategy;
 import com.bridgelabz.addressbook.strategy.SimpleJSONReadWriteStrategy;
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +24,7 @@ public class AddressBookServiceImpl implements IAddressBookService {
     private final String csvFilePath = "D:/FellowshipProgram/AddressBook/src/test/resources/AddressBook.csv";
     IFileReadWriteStrategy csvReadWriteStrategy = new CSVReadWriteStrategy();
     private final String gsonJSONFilePath = "D:/FellowshipProgram/AddressBook/src/test/resources/GsonAddressBook.json";
-    IFileReadWriteStrategy gsonReadWriteStrategy = new GsonToJSONReadWriteStrategy();
+    IFileReadWriteStrategy gsonReadWriteStrategy = new JSONReadWriteUsingGsonStrategy();
 
     @Override
     public void addPerson() {
@@ -62,25 +61,43 @@ public class AddressBookServiceImpl implements IAddressBookService {
     public void editPerson() {
         Person person = getPersonName();
         if (person != null) {
-            System.out.print("Enter Address: ");
-            final String address = AddressBookUtil.getUserString();
-            person.setAddress(address);
-
-            System.out.print("Enter City: ");
-            final String city = AddressBookUtil.getUserString();
-            person.setCity(city);
-
-            System.out.print("Enter State: ");
-            final String state = AddressBookUtil.getUserString();
-            person.setState(state);
-
-            System.out.print("Enter Phone number: ");
-            final String phone = AddressBookUtil.getUserString();
-            person.setPhone(phone);
-
-            System.out.print("Enter Zip code: ");
-            final String zipCode = AddressBookUtil.getUserString();
-            person.setZipCode(zipCode);
+            System.out.println("1.Edit address \n2.Edit city \n3.Edit state \n4.Edit phone number \n5.Edit zip code");
+            System.out.println("Enter your choice for edit person details::");
+            int option = AddressBookUtil.getUserNumber();
+            switch (option) {
+                case 1:
+                    AddressBookUtil.getUserString();
+                    System.out.println("Enter Address: ");
+                    final String address = AddressBookUtil.getUserString();
+                    person.setAddress(address);
+                    break;
+                case 2:
+                    AddressBookUtil.getUserString();
+                    System.out.println("Enter City: ");
+                    final String city = AddressBookUtil.getUserString();
+                    person.setCity(city);
+                    break;
+                case 3:
+                    AddressBookUtil.getUserString();
+                    System.out.println("Enter State: ");
+                    final String state = AddressBookUtil.getUserString();
+                    person.setState(state);
+                    break;
+                case 4:
+                    AddressBookUtil.getUserString();
+                    System.out.println("Enter Phone number: ");
+                    final String phone = AddressBookUtil.getUserString();
+                    person.setPhone(phone);
+                    break;
+                case 5:
+                    AddressBookUtil.getUserString();
+                    System.out.println("Enter Zip code: ");
+                    final String zipCode = AddressBookUtil.getUserString();
+                    person.setZipCode(zipCode);
+                    break;
+                default:
+                    System.out.println("Invalid input");
+            }
             saveDetails();
         } else {
             System.out.println("data not found.");
@@ -138,8 +155,8 @@ public class AddressBookServiceImpl implements IAddressBookService {
             System.out.println("Address: " + person.getAddress());
             System.out.println("City: " + person.getCity());
             System.out.println("State: " + person.getState());
-            System.out.println("ZipCode: " + person.getZipCode());
             System.out.println("Phone: " + person.getPhone());
+            System.out.println("ZipCode: " + person.getZipCode());
         }
     }
 
@@ -214,14 +231,17 @@ public class AddressBookServiceImpl implements IAddressBookService {
         display();
         System.out.print("Enter first name of person you want to edit or delete:: ");
         String firstName = AddressBookUtil.getUserString();
-        Person person = findPerson(firstName);
+        System.out.print("Enter last name of person you want to edit or delete:: ");
+        String lastName = AddressBookUtil.getUserString();
+        Person person = findPerson(firstName, lastName);
         return person;
     }
 
     @Override
-    public Person findPerson(String firstName) {
+    public Person findPerson(String firstName, String lastName) {
         Person returnPerson = addressBook.stream()
                 .filter(person -> firstName.equals(person.getFirstName()))
+                .filter(person -> lastName.equals(person.getLastName()))
                 .findFirst()
                 .orElse(null);
         return returnPerson;

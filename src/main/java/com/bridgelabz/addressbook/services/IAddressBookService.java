@@ -15,7 +15,7 @@ public interface IAddressBookService {
     void display();
     void saveDetails();
     void viewByCityAndState();
-    Person findPerson(String firstName);
+    Person findPerson(String firstName, String lastName);
     void sort();
     void findByCityOrState();
     void loadDataFromSimpleJSON() throws IOException;

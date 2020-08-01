@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GsonToJSONReadWriteStrategy implements IFileReadWriteStrategy {
+public class JSONReadWriteUsingGsonStrategy implements IFileReadWriteStrategy {
 
     @Override
     public void writeDataToFile(List<Person> addressBook, String filePath) {

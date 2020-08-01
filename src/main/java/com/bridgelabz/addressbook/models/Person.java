@@ -26,20 +26,21 @@ public class Person {
     @CsvBindByName(required = true, column = "STATE")
     private String state;
 
-    @CsvBindByName(required = true, column = "ZIP")
-    private String zipCode;
-
     @CsvBindByName(required = true, column = "MOBILE NO.")
     private String phone;
 
-    public Person(final String firstName, final String lastName, final String address, final String city, final String state, final String zipCode, final String phone) {
+    @CsvBindByName(required = true, column = "ZIP")
+    private String zipCode;
+
+    public Person(String firstName, String lastName, String address, String city,
+                  String state, String phone, String zipCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
         this.state = state;
-        this.zipCode = zipCode;
         this.phone = phone;
+        this.zipCode = zipCode;
     }
 
     public String getFirstName() {
@@ -74,20 +75,20 @@ public class Person {
         this.state = state;
     }
 
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     @Override
@@ -98,8 +99,8 @@ public class Person {
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", zipCode='" + zipCode + '\'' +
                 ", phone='" + phone + '\'' +
+                ", zipCode='" + zipCode + '\'' +
                 '}';
     }
 
