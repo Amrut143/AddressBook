@@ -15,4 +15,7 @@ dependencies {
     compile 'org.json:json:20171018'
     compile "com.opencsv:opencsv:4.0"
     compile 'com.google.code.gson:gson:2.2.+'
+    testImplementation'org.mockito:mockito-core:2.7.22'
+    testImplementation 'io.rest-assured:rest-assured:4.1.2'
+    testImplementation 'org.hamcrest:hamcrest-library:1.3'
 }
