@@ -9,6 +9,7 @@ import com.bridgelabz.addressbook.utils.AddressBookUtil;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -25,30 +26,65 @@ public class AddressBookServiceImpl implements IAddressBookService {
     IFileReadWriteStrategy csvReadWriteStrategy = new CSVReadWriteStrategy();
     private final String gsonJSONFilePath = "D:/FellowshipProgram/AddressBook/src/test/resources/GsonAddressBook.json";
     IFileReadWriteStrategy gsonReadWriteStrategy = new JSONReadWriteUsingGsonStrategy();
+    private static final String NAME_PATTERN = "^[A-Z]{1}[A-Za-z]{2,}";
+    private static final String PHONE_PATTERN = "^[1-9][0-9]{9}$";
+    private static final String ADDRESS_PATTERN = "^([a-zA-Z0-9])+$";
+    private static final String PATTERN = "([A-Za-z][ ]?){1,}$";
+    private static final String ZIP_PATTERN = "^[1-9][0-9]{5}$";
+
+    private boolean validateInput(String input, String validator) {
+        Pattern pattern = Pattern.compile(validator);
+        if (pattern.matcher(input).matches())
+            return true;
+        else
+            System.out.print("Invalid Input. Please Enter Again.\n");
+        return false;
+    }
 
     @Override
     public void addPerson() {
-        AddressBookUtil.getUserString();
-        System.out.println("Enter First name: ");
-        final String firstName = AddressBookUtil.getUserString();
+        String firstName;
+        do {
+            AddressBookUtil.getUserString();
+            System.out.println("Enter First name: ");
+            firstName = AddressBookUtil.getUserString();
+        } while (!this.validateInput(firstName, NAME_PATTERN));
 
-        System.out.println("Enter Last name: ");
-        final String lastName = AddressBookUtil.getUserString();
+        String lastName;
+        do {
+            System.out.println("Enter Last name: ");
+            lastName = AddressBookUtil.getUserString();
+        } while (!this.validateInput(lastName, NAME_PATTERN));
 
-        System.out.println("Enter Address: ");
-        final String address = AddressBookUtil.getUserString();
+        String address;
+        do {
+            System.out.println("Enter Address: ");
+            address = AddressBookUtil.getUserString();
+        } while (!this.validateInput(address, ADDRESS_PATTERN));
 
-        System.out.println("Enter City: ");
-        final String city = AddressBookUtil.getUserString();
+        String city;
+        do {
+            System.out.println("Enter City: ");
+            city = AddressBookUtil.getUserString();
+        } while (!this.validateInput(city, PATTERN));
 
-        System.out.println("Enter State: ");
-        final String state = AddressBookUtil.getUserString();
+        String state;
+        do {
+            System.out.println("Enter State: ");
+            state = AddressBookUtil.getUserString();
+        } while (!this.validateInput(state, PATTERN));
 
-        System.out.println("Enter Phone number: ");
-        final String phone = AddressBookUtil.getUserString();
+        String phone;
+        do {
+            System.out.println("Enter Phone number: ");
+            phone = AddressBookUtil.getUserString();
+        } while (!this.validateInput(phone, PHONE_PATTERN));
 
-        System.out.println("Enter Zip code: ");
-        final String zipCode = AddressBookUtil.getUserString();
+        String zipCode;
+        do {
+            System.out.println("Enter Zip code: ");
+            zipCode = AddressBookUtil.getUserString();
+        } while (!this.validateInput(zipCode, ZIP_PATTERN));
 
         final Person person = new Person(firstName, lastName, address, city, state, phone, zipCode);
         addressBook.add(person);

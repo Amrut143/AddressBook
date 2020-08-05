@@ -1,9 +1,11 @@
 package com.bridgelabz.addressbook.controller;
 
+import com.bridgelabz.addressbook.strategy.CSVReadWriteStrategy;
+import com.bridgelabz.addressbook.strategy.JSONReadWriteUsingGsonStrategy;
+import com.bridgelabz.addressbook.strategy.SimpleJSONReadWriteStrategy;
 import com.bridgelabz.addressbook.utils.AddressBookUtil;
 import com.bridgelabz.addressbook.services.IAddressBookService;
 import com.bridgelabz.addressbook.services.AddressBookServiceImpl;
-
 import java.io.IOException;
 
 /**
@@ -16,6 +18,14 @@ public class AddressBookMain {
 
         final IAddressBookService iAddressBookService = new AddressBookServiceImpl();
         System.out.println("Welcome to addressbook problem");
+        SimpleJSONReadWriteStrategy simpleJSONReadWriteStrategy = new SimpleJSONReadWriteStrategy();
+        simpleJSONReadWriteStrategy.start();
+        CSVReadWriteStrategy csvReadWriteStrategy = new CSVReadWriteStrategy();
+        csvReadWriteStrategy.start();
+        JSONReadWriteUsingGsonStrategy jsonReadWriteUsingGsonStrategy = new JSONReadWriteUsingGsonStrategy();
+        jsonReadWriteUsingGsonStrategy.start();
+
+
 
         System.out.println("\nEnter the file operation you want to perform: " +
                 "\n1.SimpleJSONFile \n2.CSVFile \n3.JSONFileUsingGson \nEnter your option:: ");
