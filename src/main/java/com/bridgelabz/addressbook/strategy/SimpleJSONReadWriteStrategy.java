@@ -12,10 +12,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleJSONReadWriteStrategy implements IFileReadWriteStrategy {
+public class SimpleJSONReadWriteStrategy extends Thread implements IFileReadWriteStrategy {
 
     @Override
-    public void writeDataToFile(List<Person> addressBook, String jsonFilePath) {
+    public synchronized void writeDataToFile(List<Person> addressBook, String jsonFilePath) {
+        System.out.println("Write into simple json");
         JSONArray personList = new JSONArray();
         addressBook.forEach(person -> {
             JSONObject personDetails = new JSONObject();
@@ -40,7 +41,8 @@ public class SimpleJSONReadWriteStrategy implements IFileReadWriteStrategy {
     }
 
     @Override
-    public List<Person> readDataToList(String jsonFilePath) {
+    public synchronized List<Person> readDataToList(String jsonFilePath) {
+        System.out.println("Read from simple json file");
         JSONParser jsonParser = new JSONParser();
         List<Person> addressBook = new ArrayList<>();
         try (FileReader fileReader = new FileReader(jsonFilePath)) {
@@ -62,5 +64,11 @@ public class SimpleJSONReadWriteStrategy implements IFileReadWriteStrategy {
                 (String) personObject.get("State"),
                 (String) personObject.get("Phone Number"),
                 (String) personObject.get("Zipcode"));
+    }
+
+    @Override
+    public void run() {
+        this.readDataToList("D:/FellowshipProgram/AddressBook/src/test/resources/PersonAddressBook.json");
+        this.writeDataToFile(new ArrayList<>(), "D:/FellowshipProgram/AddressBook/src/test/resources/PersonAddressBook.json");
     }
 }
