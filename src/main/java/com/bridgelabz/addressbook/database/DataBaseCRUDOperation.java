@@ -10,23 +10,13 @@ public class DataBaseCRUDOperation {
             "PHONENUMBER, ZIPCODE) VALUES(?,?,?,?,?,?,?)";
     private static final String SELECT_QUERY = "SELECT * FROM PERSON";
     private static final String DELETE_QUERY = "DELETE FROM PERSON WHERE FIRSTNAME = ? AND LASTNAME = ?";
-    private Connection connection = null;
+    private final Connection connection;
     private ResultSet resultSet = null;
-    Statement statement = null;
-    String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-    String DB_URL = "jdbc:mysql:///addressbook?autoReconnect=true&useSSL=false";
-    String DB_USERNAME = "root";
-    String DB_PASSWORD = "root";
+    private Statement statement = null;
     private PreparedStatement preparedStatement = null;
 
     public DataBaseCRUDOperation() {
-        try {
-            Class.forName(DB_DRIVER);
-
-            connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
+        connection = DBConnection.getConnection();
     }
 
     public void addPersonDetailsToDataBase() {
@@ -90,7 +80,7 @@ public class DataBaseCRUDOperation {
                 String phone = resultSet.getString("phoneNumber");
                 String zipCode = resultSet.getString("zipCode");
 
-                System.out.println("FIRSTNAME: " + firstName + "  " + "LASTNAME: " + lastName + "ADDRESS: " + address + "  "
+                System.out.println("FIRSTNAME: " + firstName + "  " + "LASTNAME: " + lastName + " " + "ADDRESS: " + address + "  "
                         + "CITY: " + city + "  " + "STATE: " + state + "  " + "ZIPCODE: " + zipCode + "  "
                         + "PHONENUMBER: " + phone);
             }
