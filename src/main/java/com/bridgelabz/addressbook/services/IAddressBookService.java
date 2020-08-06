@@ -21,4 +21,5 @@ public interface IAddressBookService {
     void loadDataFromSimpleJSON() throws IOException;
     void loadDataFromCSVFile() throws IOException;
     void loadDataFromGsonJSON() throws IOException;
+    void dbCRUDOperation();
 }

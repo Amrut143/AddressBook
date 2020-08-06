@@ -1,5 +1,6 @@
 package com.bridgelabz.addressbook.services;
 
+import com.bridgelabz.addressbook.database.DataBaseCRUDOperation;
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.strategy.CSVReadWriteStrategy;
 import com.bridgelabz.addressbook.strategy.JSONReadWriteUsingGsonStrategy;
@@ -322,6 +323,32 @@ public class AddressBookServiceImpl implements IAddressBookService {
             }
             addressBook.addAll(personList);
             System.out.println("Data loaded from file");
+        }
+    }
+
+    @Override
+    public void dbCRUDOperation() {
+        DataBaseCRUDOperation dataBaseCURDOperation = new DataBaseCRUDOperation();
+        System.out.println("Enter your choice for database operation::");
+        System.out.println("1.Insert person details into database \n2.Display person details " +
+                "\n3.Update person details \n4.Delete person details");
+        int choice = AddressBookUtil.getUserNumber();
+        switch (choice) {
+            case 1:
+                dataBaseCURDOperation.addPersonDetailsToDataBase();
+                break;
+            case 2:
+                dataBaseCURDOperation.getPersonDetailsFromDataBase();
+                break;
+            case 3:
+                dataBaseCURDOperation.editPersonDetails();
+                break;
+            case 4:
+                dataBaseCURDOperation.deletePersonDetails();
+                break;
+            case 5:
+                System.out.println("Invalid input");
+                break;
         }
     }
 }

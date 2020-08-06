@@ -16,11 +16,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVReadWriteStrategy extends Thread implements IFileReadWriteStrategy {
+public class CSVReadWriteStrategy implements IFileReadWriteStrategy {
 
     @Override
-    public synchronized List<Person> readDataToList(String filePath) throws IOException {
-        System.out.println("Read from csv file");
+    public List<Person> readDataToList(String filePath) throws IOException {
         try (CSVReader csvReader = new CSVReader(new FileReader(filePath))) {
             List<Person> addressBook = new ArrayList<>();
             csvReader.readNext();
@@ -39,8 +38,7 @@ public class CSVReadWriteStrategy extends Thread implements IFileReadWriteStrate
     }
 
     @Override
-    public synchronized void writeDataToFile(List<Person> addressBook, String filePath) {
-        System.out.println("Write into csv file");
+    public void writeDataToFile(List<Person> addressBook, String filePath) {
         try (Writer writer = Files.newBufferedWriter(Paths.get(filePath))) {
             StatefulBeanToCsv<Person> beanToCsv = new StatefulBeanToCsvBuilder(writer)
                     .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
@@ -49,15 +47,5 @@ public class CSVReadWriteStrategy extends Thread implements IFileReadWriteStrate
         } catch (IOException | CsvRequiredFieldEmptyException | CsvDataTypeMismatchException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void run() {
-        try {
-            this.readDataToList("D:/FellowshipProgram/AddressBook/src/test/resources/AddressBook.csv");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.writeDataToFile(new ArrayList<>(), "D:/FellowshipProgram/AddressBook/src/test/resources/AddressBook.csv");
     }
 }

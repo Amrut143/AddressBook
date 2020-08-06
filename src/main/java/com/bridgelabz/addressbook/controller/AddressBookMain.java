@@ -18,17 +18,9 @@ public class AddressBookMain {
 
         final IAddressBookService iAddressBookService = new AddressBookServiceImpl();
         System.out.println("Welcome to addressbook problem");
-        SimpleJSONReadWriteStrategy simpleJSONReadWriteStrategy = new SimpleJSONReadWriteStrategy();
-        simpleJSONReadWriteStrategy.start();
-        CSVReadWriteStrategy csvReadWriteStrategy = new CSVReadWriteStrategy();
-        csvReadWriteStrategy.start();
-        JSONReadWriteUsingGsonStrategy jsonReadWriteUsingGsonStrategy = new JSONReadWriteUsingGsonStrategy();
-        jsonReadWriteUsingGsonStrategy.start();
-
-
 
         System.out.println("\nEnter the file operation you want to perform: " +
-                "\n1.SimpleJSONFile \n2.CSVFile \n3.JSONFileUsingGson \nEnter your option:: ");
+                "\n1.SimpleJSONFile \n2.CSVFile \n3.JSONFileUsingGson \n4.DataBaseOperation \nEnter your option:: ");
         int choice = AddressBookUtil.getUserNumber();
         switch (choice) {
             case 1:
@@ -39,6 +31,9 @@ public class AddressBookMain {
                 break;
             case 3:
                 iAddressBookService.loadDataFromGsonJSON();
+                break;
+            case 4:
+                iAddressBookService.dbCRUDOperation();
                 break;
             default:
                 System.out.println("Invalid input, please enter valid input");

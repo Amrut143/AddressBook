@@ -12,25 +12,25 @@ import java.util.Objects;
 public class Person {
 
     @CsvBindByName(required = true, column = "FIRST NAME")
-    private final String firstName;
+    public String firstName;
 
     @CsvBindByName(required = true, column = "LAST NAME")
-    private final String lastName;
+    public String lastName;
 
     @CsvBindByName(required = true, column = "ADDRESS")
-    private String address;
+    public String address;
 
     @CsvBindByName(required = true, column = "CITY")
-    private String city;
+    public String city;
 
     @CsvBindByName(required = true, column = "STATE")
-    private String state;
+    public String state;
 
     @CsvBindByName(required = true, column = "MOBILE NO.")
-    private String phone;
+    public String phone;
 
     @CsvBindByName(required = true, column = "ZIP")
-    private String zipCode;
+    public String zipCode;
 
     public Person(String firstName, String lastName, String address, String city,
                   String state, String phone, String zipCode) {
@@ -42,6 +42,8 @@ public class Person {
         this.phone = phone;
         this.zipCode = zipCode;
     }
+
+    public Person() { }
 
     public String getFirstName() {
         return firstName;

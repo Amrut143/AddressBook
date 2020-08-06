@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class JSONReadWriteUsingGsonStrategy extends Thread implements IFileReadWriteStrategy {
+public class JSONReadWriteUsingGsonStrategy implements IFileReadWriteStrategy {
 
     @Override
-    public synchronized void writeDataToFile(List<Person> addressBook, String filePath) {
-        System.out.println("Write into json file using gson");
+    public void writeDataToFile(List<Person> addressBook, String filePath) {
         String personDetail = new Gson().toJson(addressBook);
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(personDetail);
@@ -25,8 +24,7 @@ public class JSONReadWriteUsingGsonStrategy extends Thread implements IFileReadW
     }
 
     @Override
-    public synchronized List<Person> readDataToList(String filePath) {
-        System.out.println("Read from json file using gson");
+    public List<Person> readDataToList(String filePath) {
         List<Person> addressBook = null;
         try {
             Person[] personDetails = new Gson().fromJson(new FileReader(filePath), Person[].class);
@@ -35,11 +33,5 @@ public class JSONReadWriteUsingGsonStrategy extends Thread implements IFileReadW
             e.printStackTrace();
         }
         return addressBook;
-    }
-
-    @Override
-    public void run() {
-        this.readDataToList("D:/FellowshipProgram/AddressBook/src/test/resources/GsonAddressBook.json");
-        this.writeDataToFile(new ArrayList<>(), "D:/FellowshipProgram/AddressBook/src/test/resources/GsonAddressBook.json");
     }
 }
