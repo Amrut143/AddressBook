@@ -19,7 +19,8 @@ public class DataBaseCRUDOperation {
         connection = DBConnection.getConnection();
     }
 
-    public void addPersonDetailsToDataBase() {
+    public boolean addPersonDetailsToDataBase() {
+        boolean flag = false;
         try {
             AddressBookUtil.getUserString();
             System.out.println("Enter First name: ");
@@ -44,18 +45,20 @@ public class DataBaseCRUDOperation {
             final String zipCode = AddressBookUtil.getUserString();
 
             preparedStatement = connection.prepareStatement(INSERT_QUERY);
-            preparedStatement.setString(1, firstName);
-            preparedStatement.setString(2, lastName);
-            preparedStatement.setString(3, address);
-            preparedStatement.setString(4, city);
-            preparedStatement.setString(5, state);
-            preparedStatement.setString(6, phone);
-            preparedStatement.setString(7, zipCode);
+            int counter = 1;
+            preparedStatement.setString(counter++, firstName);
+            preparedStatement.setString(counter++, lastName);
+            preparedStatement.setString(counter++, address);
+            preparedStatement.setString(counter++, city);
+            preparedStatement.setString(counter++, state);
+            preparedStatement.setString(counter++, phone);
+            preparedStatement.setString(counter, zipCode);
 
             int result = preparedStatement.executeUpdate();
 
             if (result == 0) {
                 System.out.println("record not inserted");
+                flag = true;
             } else {
                 System.out.println("record inserted");
             }
@@ -64,6 +67,7 @@ public class DataBaseCRUDOperation {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return flag;
     }
 
     public void getPersonDetailsFromDataBase() {
@@ -181,8 +185,9 @@ public class DataBaseCRUDOperation {
 
             preparedStatement = connection.prepareStatement(DELETE_QUERY);
 
-            preparedStatement.setString(1, firstName);
-            preparedStatement.setString(2, lastName);
+            int counter = 1;
+            preparedStatement.setString(counter++, firstName);
+            preparedStatement.setString(counter, lastName);
 
             int result = preparedStatement.executeUpdate();
             if (result == 0) {

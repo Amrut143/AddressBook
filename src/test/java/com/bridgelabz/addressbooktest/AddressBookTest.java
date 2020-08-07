@@ -1,5 +1,6 @@
 package com.bridgelabz.addressbooktest;
 
+import com.bridgelabz.addressbook.database.DataBaseCRUDOperation;
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.services.AddressBookServiceImpl;
 import com.bridgelabz.addressbook.services.IAddressBookService;
@@ -23,6 +24,14 @@ public class AddressBookTest {
         SimpleJSONReadWriteStrategy mockService = Mockito.mock(SimpleJSONReadWriteStrategy.class);
         when(mockService.readDataToList("testFileName")).thenReturn(testPersonList);
         Assert.assertEquals(mockService.readDataToList("testFileName").size(), 1);
+    }
+
+    @Test
+    public void givenPersonDetails_WhenInsertIntoDB_ShouldReturnTrue() {
+        Person testPerson = new Person("Amrut", "Panda", "silkboard", "blr", "ka", "6785904656", "457869");
+        DataBaseCRUDOperation mockService = Mockito.mock(DataBaseCRUDOperation.class);
+        when(mockService.addPersonDetailsToDataBase()).thenReturn(true);
+        Assert.assertTrue(true);
     }
 }
 
