@@ -2,9 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="viewport" content="width-device-width,initial-scale-1">
+    <link rel="stylesheet" href="BookStyles.css">
+    <title>Document</title>
 </head>
 <body>
-$END$
+<div id="opacity"></div>
+<div id="card" class="container align-content-center text-center">
+
+    <div class="card-body">
+        <div class="card text-center">
+            <div id="text" class="card-header">
+                <h1>Welcome</h1>
+                <h3> To </h3>
+                <h1>My AddressBook</h1>
+            </div>
+        </div>
+        <form id="myForm" onsubmit="return validate();">
+            <table>
+                <tr>
+                    <td><input type="firstName" placeholder="First name" required></td>
+                    <td><input type="lastName" placeholder="Last name" required></td>
+                </tr>
+                <tr>
+                    <td><input type="textarea" placeholder="Address" required></td>
+                </tr>
+                <tr>
+                    <td><input type="text" placeholder="City" required></td>
+                </tr>
+                <tr>
+                    <td><input type="text" placeholder="State" required></td>
+                </tr>
+                <tr>
+                    <td><input type="text" placeholder="Phone Number" required></td>
+                </tr>
+                <tr>
+                    <td><input type="text" placeholder="Zip Code" required></td>
+                </tr>
+            </table>
+            <input type="button" name="Submit" value="Submit">
+        </form>
+    </div>
+</div>
 </body>
 </html>
