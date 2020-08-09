@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width,initial-scale-1">
-    <link rel="stylesheet" href="BookStyles.css">
+    <link rel="stylesheet" type="text/css" href="BookStyles.css">
     <title>Document</title>
 </head>
 <body>
@@ -19,30 +19,31 @@
             </div>
         </div>
         <form id="myForm" onsubmit="return validate();">
-            <table>
+            <table border="1" cellpadding="6" cellspacing="4" >
                 <tr>
-                    <td><input type="firstName" placeholder="First name" required></td>
-                    <td><input type="lastName" placeholder="Last name" required></td>
+                    <td><input type="text" onblur="validateFirstName(this.value)"  name="firstName" id="fname" class="inputField" placeholder="First name" required><span id="warnFname"></span></td>
+                    <td><input type="text" onblur="validateLastName(this.value)"  name="lastName" id="lname" class="inputField" placeholder="Last name" required><span id="warnLname"></span></td>
                 </tr>
                 <tr>
-                    <td><input type="textarea" placeholder="Address" required></td>
+                    <td colspan="2"><textarea rows="3" cols="50" name="address" class="inputField" id="address" placeholder="Address" required></textarea></td>
                 </tr>
                 <tr>
-                    <td><input type="text" placeholder="City" required></td>
+                    <td colspan="2"><input type="text" onblur="validateCity(this.value)" name="city" id="city" class="inputField" placeholder="City" required><span id="warnCity"></span></td>
                 </tr>
                 <tr>
-                    <td><input type="text" placeholder="State" required></td>
+                    <td colspan="2"><input type="text" name="state" id="state" class="inputField" placeholder="State" required></td>
                 </tr>
                 <tr>
-                    <td><input type="text" placeholder="Phone Number" required></td>
+                    <td colspan="2"><input type="text" onblur="validatePhone(this.value)" name="phoneNumber" id="phone" class="inputField" placeholder="Phone Number" required><span id="warnPhone"></span></td>
                 </tr>
                 <tr>
-                    <td><input type="text" placeholder="Zip Code" required></td>
+                    <td colspan="2"><input type="text" onblur="validateZip(this.value)" name="zipCode" id="zip" class="inputField" placeholder="Zip Code" required><span id="warnZip"></span></td>
                 </tr>
             </table>
-            <input type="button" name="Submit" value="Submit">
+            <input type="submit" name="Submit" class="btn" value="Save">
         </form>
     </div>
 </div>
 </body>
 </html>
+<script src="./ValidateInput.js"></script>

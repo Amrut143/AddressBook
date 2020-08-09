@@ -2,7 +2,7 @@ body{
    background-image: url("../myImage/myAddressBook.webp");
     background-position: center;
     background-size: cover;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(240, 0, 0, 0.8);
     height: 100vh;
     color: white;
 }
@@ -42,50 +42,32 @@ h3{
     text-align: center;
 }
 
-input[type="text"]
-{
-    background: transparent;
-    margin-left: 05px;
-    margin-top:5px;
-    padding: 8px;
-    width: 190.2%;
-    border: 1px solid white;
+.inputField{
+	width: 95%;
+	height: 1.8rem;
+	max-width: 95%;
+	border-width: 1px;
+	border-radius: 4px;
+	background-color: #fff;
+	padding-left: 3%;
+	outline: none;
 }
 
-input[type="textarea"]
-{
-    background: transparent;
-    margin-left: 05px;
-    margin-top:5px;
-    padding: 8px;
-    width: 500px
-    border: 1px solid white;
+.inputField:hover{
+	outline-width: 3px;
+	outline-color: red;
 }
 
-
-input[type="firstName"]
-{
-    margin-top: 20px;
-    padding: 8px;
-    background: transparent;
-    margin-left: 05px;
-    border: 1px solid white;
-}
-
-input[type="lastName"]
-{
-     margin-top: 20px;
-     padding: 8px;
-     background: transparent;
-     margin-left: 05px;
-     border: 1px solid white;
-}
-
-input[type="button"]{
+.btn{
     border-radius: 10px;
     color:white;
     background: black;
     border: 1px solid yellow;
     padding: 8px 50px;
+}
+
+.warnText{
+	font-size: 1.0rem;
+	color: red;
 }
 
